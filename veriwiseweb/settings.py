@@ -6,13 +6,14 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 import os
 import dj_database_url
 
-if os.path.isfile('env.py'):
+if os.path.isfile("env.py"):
     import env
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLARES_DIR = os.path.join(BASE_DIR, 'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,11 @@ SECRET_KEY = ("django-insecure-@5xqzey&tk"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["8000-nb1355-pp5-9rucadft0zu.ws-eu102.gitpod.io"]
+ALLOWED_HOSTS = [
+    "8000-nb1355-pp5-9rucadft0zu.ws-eu102.gitpod.io",
+    "nb5513pp5-b88e980a804f.herokuapp.com",
+    "localhost",
+]
 
 
 # Application definition
@@ -36,7 +41,10 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "cloudinary_storage",  # ................why the order is important?
     "django.contrib.staticfiles",
+    "cloudinary",
+    "topic",
 ]
 
 MIDDLEWARE = [
@@ -54,7 +62,10 @@ ROOT_URLCONF = "veriwiseweb.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(BASE_DIR, 'templates'),
+            # os.path.join(BASE_DIR, 'templates', 'allauth'),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -73,15 +84,14 @@ WSGI_APPLICATION = "veriwiseweb.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-    }
+if "DATABASE_URL" in os.environ:
+    DATABASES = {"default": dj_database_url.parse(
+                            os.environ.get("DATABASE_URL"))}
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
 
@@ -91,8 +101,10 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": ("django.contrib.auth.password_validation"
-                 ".UserAttributeSimilarityValidator"),
+        "NAME": (
+            "django.contrib.auth.password_validation"
+            ".UserAttributeSimilarityValidator"
+        ),
     },
     {
         "NAME": ("django.contrib.auth.password_validation"
@@ -127,6 +139,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATICFILES_STORAGE = ("cloudinary_storage.storage"
+                       ".StaticHashedCloudinaryStorage")
+
+MEDIA_URL = "/media/"
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
