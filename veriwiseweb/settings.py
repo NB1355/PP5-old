@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "cloudinary_storage",  # ................why the order is important?
+    "cloudinary_storage",
     "django.contrib.staticfiles",
     "cloudinary",
     "topic",
@@ -141,6 +141,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_STORAGE = ("cloudinary_storage.storage"
                        ".StaticHashedCloudinaryStorage")
+
+STATICFILES_DIR = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "sataticfiles")
+
 
 MEDIA_URL = "/media/"
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
