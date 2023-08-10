@@ -23,7 +23,11 @@ SECRET_KEY = ("django-insecure-@5xqzey&tk"
               "bb=4+%yluk%nt+-(1hcys5%d)cp=d6*x3#c!27pu")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
+<<<<<<< HEAD
 DEBUG = True
+=======
+DEBUG = False
+>>>>>>> bfeba49243531b809d33090a3ad55d95288c4576
 
 ALLOWED_HOSTS = [
     "8000-nb1355-pp5-9rucadft0zu.ws-eu102.gitpod.io",
@@ -40,9 +44,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "cloudinary_storage",
+    # "cloudinary_storage",
     "django.contrib.staticfiles",
-    "cloudinary",
+    # "cloudinary",
     "topic",
 
     # other
@@ -158,6 +162,7 @@ if "USE_AWS" in os.environ:
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+<<<<<<< HEAD
     # Static and media files
     STATICFILES_STORAGE = "custom_storages.StaticStorage"
     STATICFILES_LOCATION = "static"
@@ -166,6 +171,18 @@ if "USE_AWS" in os.environ:
     # Override static and media URLs in production
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
+=======
+
+   # Static and media files
+    STATICFILES_STORAGE = "custom_storages.StaticStorage"
+    STATICFILES_LOCATION = "static"
+    DEFAULT_FILE_STORAGE = "custom_storages.MediaStorage"
+    MEDIAFILES_LOCATION = "media"    
+
+    # Override static and media URLs in production
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"    
+>>>>>>> bfeba49243531b809d33090a3ad55d95288c4576
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
